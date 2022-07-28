@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 
-//import components
-
-
 //create your first component
 const Home = () => {
 	const [task, setTask] = useState({
@@ -13,7 +10,7 @@ const Home = () => {
 	const [listTask, setListTask] = useState([])
 
 	const addTask = (event) =>{
-		if(event.key === "Enter"){
+		if(event.key === "Enter" && event.target.value !== ""){
 		setListTask([
 			...listTask,
 			task
@@ -21,31 +18,13 @@ const Home = () => {
 		setTask({
 			...task, name: ""
 		})
-	}
-		
-	}
+	}}
 
 	const handleTaskValue  = (givenTask) =>{
-		console.log(givenTask.target.value)
 		setTask({
 			...task,
 			[givenTask.target.name]: givenTask.target.value
 		})
-	}
-
-	const handleTaskState = (event) =>{
-		if(task.isDone){
-			setTask({
-				...task,
-				[event.target.name]: false
-			})
-		}
-		else if(!task.isDone){
-			setTask({
-				...task,
-				[event.target.name]: true
-			})
-		}
 	}
 
 	const deleteTask = (id) =>{
@@ -54,14 +33,12 @@ const Home = () => {
 				return item
 			}
 		})
-
 		setListTask(newList)
 	}
 
 	return (
 		<>
 		<div className="container d-flex justify-content-center">
-			
 			<div className="row">
 				<div className="col-12 d-flex justify-content-center">
 				<h1 className="fancy topText">TODOS</h1>
@@ -76,17 +53,7 @@ const Home = () => {
 						type="text"
 					/>
 				</div>
-				{/* <div className="col-2">
-					<button 
-						name="isDone" 
-						onClick={handleTaskState} 
-						className="btn btn-primary buttonSize">
-							Set as Done
-					</button>
-				</div> */}
-				
-				
-				
+				<div className="col-12 ">
 					<ul>
 						{listTask.map(
 							(element, index) => {
@@ -98,8 +65,10 @@ const Home = () => {
 							)}
 						)}
 					</ul>
-				
-				
+				</div>
+				<div className="col-12 d-flex justify-content-left fancy fs-1">
+					Items on list: {listTask.length}
+				</div>			
 			</div>
 		</div>
 		
